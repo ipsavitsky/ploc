@@ -5,7 +5,7 @@ requires-python = ">=3.12"
 dependencies = ["matplotlib>=3.10.1", "pygit2>=1.18.0", "tqdm>=4.67.1"]
 
 [tool.setuptools]
-package-dir = { "" = "ploc" }
+package-dir = { "" = "src" }
 
 [project.scripts]
 ploc = "ploc.__main__:main"
