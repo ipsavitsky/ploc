@@ -1,0 +1,15 @@
+[project]
+name = "ploc"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["matplotlib>=3.10.1", "pygit2>=1.18.0", "tqdm>=4.67.1"]
+
+[tool.setuptools]
+package-dir = { "" = "ploc" }
+
+[project.scripts]
+ploc = "ploc.__main__:main"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
