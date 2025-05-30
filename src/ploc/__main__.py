@@ -54,7 +54,7 @@ async def run_script(repo, cpu_count):
         )
 
     plt.legend()
-    plt.show()
+    plt.savefig("plot.png")
 
 
 def main():
