@@ -26,7 +26,7 @@ async def run_cloc(commit, semaphores):
     return stats
 
 
-async def run_script(repo, cpu_count):
+async def run_script(repo, cpu_count, output_path):
     repo = Repository(repo)
     print(f"executing on {cpu_count} cores")
     semaphores = asyncio.Semaphore(cpu_count)
@@ -54,7 +54,7 @@ async def run_script(repo, cpu_count):
         )
 
     plt.legend()
-    plt.savefig("plot.png")
+    plt.savefig(output_path)
 
 
 def main():
@@ -67,7 +67,14 @@ def main():
         type=int,
     )
     parser.add_argument(
+        "--output",
+        "-o",
+        help="What to output to",
+        default="plot.png",
+        type=str
+    )
+    parser.add_argument(
         "--repo", "-r", help="Path to bare git repository", default=".git", type=str
     )
     args = parser.parse_args()
-    asyncio.run(run_script(args.repo, args.jobs))
+    asyncio.run(run_script(args.repo, args.jobs, args.output))
