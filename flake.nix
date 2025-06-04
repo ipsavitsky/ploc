@@ -73,7 +73,15 @@
 
         packages = rec {
           default = ploc;
-          ploc = pythonSet.mkVirtualEnv "ploc" workspace.deps.default;
+          ploc_script = pythonSet.mkVirtualEnv "ploc" workspace.deps.default;
+          ploc = pkgs.writeShellApplication {
+            name = "ploc";
+            runtimeInputs = [
+              ploc_script
+              pkgs.cloc
+            ];
+            text = ''ploc "$@"'';
+          };
         };
       }
     );
