@@ -1,0 +1,17 @@
+name: build
+
+on: [workflow_call]
+
+jobs:
+  uv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6.1.0
+      - run: uv run build
+  nix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v17
+      - run: nix build
