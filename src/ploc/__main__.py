@@ -67,11 +67,7 @@ def main():
         type=int,
     )
     parser.add_argument(
-        "--output",
-        "-o",
-        help="What to output to",
-        default="plot.png",
-        type=str
+        "--output", "-o", help="What to output to", default="plot.png", type=str
     )
     parser.add_argument(
         "--repo", "-r", help="Path to bare git repository", default=".git", type=str
