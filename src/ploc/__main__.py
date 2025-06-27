@@ -2,14 +2,16 @@ import argparse
 import asyncio
 import json
 import multiprocessing
+from typing import Any
 
 import matplotlib.pyplot as plt
-from pygit2 import Repository
+from pygit2.repository import Repository
 from pygit2.enums import SortMode
+from pygit2 import Commit
 from tqdm.asyncio import tqdm
 
 
-async def run_cloc(commit, semaphores):
+async def run_cloc(commit: Commit, semaphores: asyncio.Semaphore) -> dict[str, Any]:
     async with semaphores:
         tqdm.write(f"checking {commit.short_id}")
         process = await asyncio.create_subprocess_exec(
@@ -26,8 +28,8 @@ async def run_cloc(commit, semaphores):
     return stats
 
 
-async def run_script(repo, cpu_count, output_path):
-    repo = Repository(repo)
+async def run_script(repo_name: str, cpu_count: int, output_path: str) -> None:
+    repo = Repository(repo_name)
     print(f"executing on {cpu_count} cores")
     semaphores = asyncio.Semaphore(cpu_count)
     tasks = [
@@ -57,7 +59,7 @@ async def run_script(repo, cpu_count, output_path):
     plt.savefig(output_path)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(prog="ploc")
     parser.add_argument(
         "--jobs",
