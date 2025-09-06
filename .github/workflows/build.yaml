@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: astral-sh/setup-uv@v6.6.0
+      - uses: astral-sh/setup-uv@v6.6.1
       - run: uv build
   nix:
     runs-on: ubuntu-latest
