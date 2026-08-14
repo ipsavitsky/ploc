@@ -5,9 +5,9 @@ import multiprocessing
 from typing import Any
 
 import matplotlib.pyplot as plt
-from pygit2.repository import Repository
-from pygit2.enums import SortMode
 from pygit2 import Commit
+from pygit2.enums import SortMode
+from pygit2.repository import Repository
 from tqdm.asyncio import tqdm
 
 
@@ -39,9 +39,9 @@ async def run_script(repo_name: str, cpu_count: int, output_path: str) -> None:
         )
     ]
     plot_dicts = await tqdm.gather(*tasks)
-    x_points = list(range(0, len(plot_dicts)))
+    x_points = list(range(len(plot_dicts)))
 
-    fig, ax = plt.subplots()
+    _, ax = plt.subplots()
     lang_set = set()
     for dict_ in plot_dicts:
         for lang in dict_:
@@ -51,7 +51,7 @@ async def run_script(repo_name: str, cpu_count: int, output_path: str) -> None:
     for lang in lang_set:
         ax.plot(
             x_points,
-            list(map(lambda x: x.get(lang, {"code": 0})["code"], plot_dicts)),
+            [x.get(lang, {"code": 0})["code"] for x in plot_dicts],
             label=lang,
         )
 
